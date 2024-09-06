@@ -18,5 +18,11 @@ simple: simple.cpp
 simple.cpp: simple.m
 	${SRCPATH}mu ${MURPHIOPTS} simple.m
 
+simple_combined_res_req_buf: simple_combined_res_req_buf.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o simple_combined_res_req_buf simple_combined_res_req_buf.cpp -I${INCLUDEPATH} -lm
+
+simple_combined_res_req_buf.cpp: simple_combined_res_req_buf.m
+	${SRCPATH}mu ${MURPHIOPTS} simple_combined_res_req_buf.m
+
 clean:
-	rm -f simple.cpp simple
+	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf
