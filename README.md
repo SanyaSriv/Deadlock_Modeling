@@ -26,7 +26,7 @@ There are 3 kinds of actions -
 
 Result with Murphi - Deadlock state is found (which was expected).
 
-````Unpacking state from queue:
+```Unpacking state from queue:
 N0_VN0_link0_space0:response
 N1_VN0_link0_space0:empty
 
@@ -40,7 +40,7 @@ N1_VN0_link0_space0:request
 ------------------------------
 Unpacking state from queue:
 N0_VN0_link0_space0:request
-N1_VN0_link0_space0:request````
+N1_VN0_link0_space0:request```
 
 --------------------------------
 **simple_combined_res_req_buf2.m**
@@ -58,12 +58,12 @@ should be moved up to the head.
 
 Result with Murphi - Deadlock state is found (which was expected).
 
-````
+```
 Unpacking state from queue:
 N0_VN0_link0_space0:request
 N0_VN0_link0_space1:request
 N1_VN0_link0_space0:request
 N1_VN0_link0_space1:request
-````
+```
 
 --------------------------------
