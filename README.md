@@ -1,7 +1,7 @@
 # Deadlock_Modeling
 
 --------------------------------
-simple.m
+**simple.m**
 
 Protocol has 2 nodes - N0 and N1.
 Each node has 2 VNs - VN0 and VN1. VN0 acts like a request buffer, and VN1 acts like a response buffer.
@@ -14,7 +14,7 @@ There are 3 kinds of actions -
 Result with Murphi - 16 states, 40 rules fired in 0.10s. No deadlocks were detected. 
 
 --------------------------------
-simple_combined_res_req_buf.m
+**simple_combined_res_req_buf.m**
 
 Protocol has 2 nodes - N0 and N1.
 Each node has 1 VN - VN0. Hence, the requests and responses get queued in the same buffer. 
