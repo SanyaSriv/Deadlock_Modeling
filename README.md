@@ -40,7 +40,8 @@ N1_VN0_link0_space0:request
 ------------------------------
 Unpacking state from queue:
 N0_VN0_link0_space0:request
-N1_VN0_link0_space0:request```
+N1_VN0_link0_space0:request
+```
 
 --------------------------------
 **simple_combined_res_req_buf2.m**
