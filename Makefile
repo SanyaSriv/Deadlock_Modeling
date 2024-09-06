@@ -24,5 +24,11 @@ simple_combined_res_req_buf: simple_combined_res_req_buf.cpp
 simple_combined_res_req_buf.cpp: simple_combined_res_req_buf.m
 	${SRCPATH}mu ${MURPHIOPTS} simple_combined_res_req_buf.m
 
+simple_combined_res_req_buf2: simple_combined_res_req_buf2.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o simple_combined_res_req_buf2 simple_combined_res_req_buf2.cpp -I${INCLUDEPATH} -lm
+
+simple_combined_res_req_buf2.cpp: simple_combined_res_req_buf2.m
+	${SRCPATH}mu ${MURPHIOPTS} simple_combined_res_req_buf2.m
+
 clean:
-	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf
+	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf simple_combined_res_req_buf2.cpp simple_combined_res_req_buf2
