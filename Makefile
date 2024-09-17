@@ -30,5 +30,11 @@ simple_combined_res_req_buf2: simple_combined_res_req_buf2.cpp
 simple_combined_res_req_buf2.cpp: simple_combined_res_req_buf2.m
 	${SRCPATH}mu ${MURPHIOPTS} simple_combined_res_req_buf2.m
 
+token: token.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o token token.cpp -I${INCLUDEPATH} -lm
+
+token.cpp: token.m
+	${SRCPATH}mu ${MURPHIOPTS} token.m
+
 clean:
-	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf simple_combined_res_req_buf2.cpp simple_combined_res_req_buf2
+	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf simple_combined_res_req_buf2.cpp simple_combined_res_req_buf2 token.cpp token
