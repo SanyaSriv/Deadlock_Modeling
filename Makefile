@@ -36,5 +36,43 @@ token: token.cpp
 token.cpp: token.m
 	${SRCPATH}mu ${MURPHIOPTS} token.m
 
+BaseModel: BaseModel.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o BaseModel BaseModel.cpp -I${INCLUDEPATH} -lm
+
+BaseModel.cpp: BaseModel.m
+	${SRCPATH}mu ${MURPHIOPTS} BaseModel.m
+
+
+QueueClearFirst: QueueClearFirst.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o QueueClearFirst QueueClearFirst.cpp -I${INCLUDEPATH} -lm
+
+QueueClearFirst.cpp: QueueClearFirst.m
+	${SRCPATH}mu ${MURPHIOPTS} QueueClearFirst.m
+
+ProcessAndSend: ProcessAndSend.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o ProcessAndSend ProcessAndSend.cpp -I${INCLUDEPATH} -lm
+
+ProcessAndSend.cpp: ProcessAndSend.m
+	${SRCPATH}mu ${MURPHIOPTS} ProcessAndSend.m
+
+ProcessAndSend2: ProcessAndSend2.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o ProcessAndSend2 ProcessAndSend2.cpp -I${INCLUDEPATH} -lm
+
+ProcessAndSend2.cpp: ProcessAndSend2.m
+	${SRCPATH}mu ${MURPHIOPTS} ProcessAndSend2.m
+
+LastSpaceEmpty: LastSpaceEmpty.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o LastSpaceEmpty LastSpaceEmpty.cpp -I${INCLUDEPATH} -lm
+
+LastSpaceEmpty.cpp: LastSpaceEmpty.m
+	${SRCPATH}mu ${MURPHIOPTS} LastSpaceEmpty.m
+
 clean:
-	rm -f simple.cpp simple simple_combined_res_req_buf.cpp simple_combined_res_req_buf simple_combined_res_req_buf2.cpp simple_combined_res_req_buf2 token.cpp token
+	rm -f simple.cpp simple simple_combined_res_req_buf.cpp 
+	simple_combined_res_req_buf simple_combined_res_req_buf2.cpp 
+	simple_combined_res_req_buf2 token.cpp token 
+	BaseModel.cpp BaseModel
+	QueueClearFirst.cpp QueueClearFirst 
+	ProcessAndSend.cpp ProcessAndSend
+	ProcessAndSend2.cpp ProcessAndSend2
+	LastSpaceEmpty.cpp LastSpaceEmpty
