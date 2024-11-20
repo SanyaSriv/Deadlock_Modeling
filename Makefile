@@ -67,6 +67,12 @@ LastSpaceEmpty: LastSpaceEmpty.cpp
 LastSpaceEmpty.cpp: LastSpaceEmpty.m
 	${SRCPATH}mu ${MURPHIOPTS} LastSpaceEmpty.m
 
+LocalTokens: LocalTokens.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o LocalTokens LocalTokens.cpp -I${INCLUDEPATH} -lm
+
+LocalTokens.cpp: LocalTokens.m
+	${SRCPATH}mu ${MURPHIOPTS} LocalTokens.m
+
 clean:
 	rm -f simple.cpp simple simple_combined_res_req_buf.cpp 
 	simple_combined_res_req_buf simple_combined_res_req_buf2.cpp 
@@ -76,3 +82,4 @@ clean:
 	ProcessAndSend.cpp ProcessAndSend
 	ProcessAndSend2.cpp ProcessAndSend2
 	LastSpaceEmpty.cpp LastSpaceEmpty
+	LocalTokens.cpp LocalTokens
