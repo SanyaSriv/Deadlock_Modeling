@@ -128,3 +128,59 @@ encoded in Murphi do not permit this behavior.
 Command Ran: `./LastSpaceEmpty`
 
 Result: There is no deadlock. However, I am not able to reason out whether this protocol is the same as process and send. 
+
+- Experiment 5: Local token implementation. In this invariant, a token would have to be obtained/returned at each hop. Hence, a request would need a token from the other node to propogate. When a request gets processed, it would need to release the token of the node and then acquire a token of the buffer that needs to store the response. If the token for the response message is not available, the request would not be able to get processed. 
+Processing a response message would never consume a token. 
+
+Command Ran: `./LocalTokens -d outputdir`
+
+Result: A deadlock is found as expected
+
+        Rule Send Request or set intent to send request, n2:0, n1:1 fired.
+        The last state of the trace (in full) is:
+        Network[0][0]:0
+        Network[0][1]:1
+        Network[1][0]:1
+        Network[1][1]:0
+        IncomingQueue[0][0][0].msg_type:empty
+        IncomingQueue[0][0][1].msg_type:empty
+        IncomingQueue[0][0][2].msg_type:empty
+        IncomingQueue[0][0][3].msg_type:empty
+        IncomingQueue[0][0][4].msg_type:empty
+        IncomingQueue[0][0][5].msg_type:empty
+        IncomingQueue[0][0][6].msg_type:empty
+        IncomingQueue[0][0][7].msg_type:empty
+        IncomingQueue[0][1][0].msg_type:request
+        IncomingQueue[0][1][1].msg_type:request
+        IncomingQueue[0][1][2].msg_type:request
+        IncomingQueue[0][1][3].msg_type:request
+        IncomingQueue[0][1][4].msg_type:request
+        IncomingQueue[0][1][5].msg_type:request
+        IncomingQueue[0][1][6].msg_type:request
+        IncomingQueue[0][1][7].msg_type:empty
+        IncomingQueue[1][0][0].msg_type:request
+        IncomingQueue[1][0][1].msg_type:request
+        IncomingQueue[1][0][2].msg_type:request
+        IncomingQueue[1][0][3].msg_type:request
+        IncomingQueue[1][0][4].msg_type:request
+        IncomingQueue[1][0][5].msg_type:request
+        IncomingQueue[1][0][6].msg_type:request
+        IncomingQueue[1][0][7].msg_type:empty
+        IncomingQueue[1][1][0].msg_type:empty
+        IncomingQueue[1][1][1].msg_type:empty
+        IncomingQueue[1][1][2].msg_type:empty
+        IncomingQueue[1][1][3].msg_type:empty
+        IncomingQueue[1][1][4].msg_type:empty
+        IncomingQueue[1][1][5].msg_type:empty
+        IncomingQueue[1][1][6].msg_type:empty
+        IncomingQueue[1][1][7].msg_type:empty
+        TailPointers[0][0]:0
+        TailPointers[0][1]:7
+        TailPointers[1][0]:7
+        TailPointers[1][1]:0
+        Tokens[0][0]:Undefined
+        Tokens[0][1]:0
+        Tokens[1][0]:0
+        Tokens[1][1]:Undefined
+    
+    We can see that the last space in the buffers is not utilized even though it is empty. This is because using tokens this way virtually limits the number of spaces. 
