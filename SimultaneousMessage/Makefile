@@ -18,6 +18,14 @@ QueueClearFirst: QueueClearFirst.cpp
 QueueClearFirst.cpp: QueueClearFirst.m
 	${SRCPATH}mu ${MURPHIOPTS} QueueClearFirst.m
 
+ProcessAndSend: ProcessAndSend.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o ProcessAndSend ProcessAndSend.cpp -I${INCLUDEPATH} -lm
+
+ProcessAndSend.cpp: ProcessAndSend.m
+	${SRCPATH}mu ${MURPHIOPTS} ProcessAndSend.m
+
+
 clean:
 	rm -f \
 	QueueClearFirst.cpp QueueClearFirst
+	ProcessAndSend.cpp ProcessAndSend
