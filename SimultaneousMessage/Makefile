@@ -30,9 +30,15 @@ BoundedTokenOscillation: BoundedTokenOscillation.cpp
 BoundedTokenOscillation.cpp: BoundedTokenOscillation.m
 	${SRCPATH}mu ${MURPHIOPTS} BoundedTokenOscillation.m
 
+LastSpaceNotRequest: LastSpaceNotRequest.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o LastSpaceNotRequest LastSpaceNotRequest.cpp -I${INCLUDEPATH} -lm
+
+LastSpaceNotRequest.cpp: LastSpaceNotRequest.m
+	${SRCPATH}mu ${MURPHIOPTS} LastSpaceNotRequest.m
 
 clean:
 	rm -f \
 	QueueClearFirst.cpp QueueClearFirst \
 	ProcessAndSend.cpp ProcessAndSend \
-	BoundedTokenOscillation.cpp BoundedTokenOscillation
+	BoundedTokenOscillation.cpp BoundedTokenOscillation \
+	LastSpaceNotRequest.cpp LastSpaceNotRequest
