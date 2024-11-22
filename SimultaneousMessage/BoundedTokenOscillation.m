@@ -26,7 +26,10 @@ var IncomingQueue: array[NodeIDs] of array[NodeIDs] of Queue;
 /*To track position of next message insertion in the queue*/
 var TailPointers: array[NodeIDs] of array[NodeIDs] of 0..BufferSpace;
 /*Token variable -- contains the number of tokens a node link has*/
-var Tokens: array[NodeIDs] of array[NodeIDs] of 0..NumberTokens;
+var Tokens: array[NodeIDs] of array[NodeIDs] of 0..NumberTokens+1;
+/*Uncomment this line if you want to increase the nuber of tokens in the system
+to S - 1 from s - 2*/
+/*var Tokens: array[NodeIDs] of array[NodeIDs] of 0..NumberTokens+1;*/
 
 procedure SendRequest(msg_type:MessageState; src_nid:NodeIDs; dest_nid:NodeIDs);
     var msg_to_send: Message;
@@ -90,6 +93,12 @@ Begin
             endfor;
         TailPointers[nid1][nid2] := 0; /* first insertion will be at the head of the queue */
         Tokens[nid1][nid2] := NumberTokens; /*we begin with 0 tokens*/
+        /*Uncomment this line if you want to increase the number of tokens in the system to
+        S -1 from S - 2*/
+        /*
+        if nid1 != 0 then
+            Tokens[nid1][nid2] := NumberTokens + 1;
+        endif; */
         endfor;
     endfor;
 
