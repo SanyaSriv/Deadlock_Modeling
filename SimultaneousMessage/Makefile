@@ -24,8 +24,15 @@ ProcessAndSend: ProcessAndSend.cpp
 ProcessAndSend.cpp: ProcessAndSend.m
 	${SRCPATH}mu ${MURPHIOPTS} ProcessAndSend.m
 
+BoundedTokenOscillation: BoundedTokenOscillation.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o BoundedTokenOscillation BoundedTokenOscillation.cpp -I${INCLUDEPATH} -lm
+
+BoundedTokenOscillation.cpp: BoundedTokenOscillation.m
+	${SRCPATH}mu ${MURPHIOPTS} BoundedTokenOscillation.m
+
 
 clean:
 	rm -f \
 	QueueClearFirst.cpp QueueClearFirst
 	ProcessAndSend.cpp ProcessAndSend
+	BoundedTokenOscillation.cpp BoundedTokenOscillation
