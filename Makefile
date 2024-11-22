@@ -91,16 +91,21 @@ QueueClearFirst_simul: QueueClearFirst_simul.cpp
 QueueClearFirst_simul.cpp: QueueClearFirst_simul.m
 	${SRCPATH}mu ${MURPHIOPTS} QueueClearFirst_simul.m
 
+ProcessAndSend_no_token_res: ProcessAndSend_no_token_res.cpp
+	${CXX} ${CFLAGS} ${OFLAGS} -o ProcessAndSend_no_token_res ProcessAndSend_no_token_res.cpp -I${INCLUDEPATH} -lm
+
+ProcessAndSend_no_token_res.cpp: ProcessAndSend_no_token_res.m
+	${SRCPATH}mu ${MURPHIOPTS} ProcessAndSend_no_token_res.m
+
 clean:
-	rm -f simple.cpp simple simple_combined_res_req_buf.cpp 
-	simple_combined_res_req_buf simple_combined_res_req_buf2.cpp 
-	simple_combined_res_req_buf2 token.cpp token 
-	BaseModel.cpp BaseModel
-	QueueClearFirst.cpp QueueClearFirst 
-	ProcessAndSend.cpp ProcessAndSend
-	ProcessAndSend2.cpp ProcessAndSend2
-	LastSpaceEmpty.cpp LastSpaceEmpty
-	LocalTokens.cpp LocalTokens
-	GlobalTokens.cpp GlobalTokens
-	LastSpaceNotRequest.cpp LastSpaceEmpty
-	QueueClearFirst_simul.cpp QueueClearFirst_simul
+	rm -f \
+	BaseModel.cpp BaseModel \
+	QueueClearFirst.cpp QueueClearFirst \
+	ProcessAndSend.cpp ProcessAndSend \
+	ProcessAndSend2.cpp ProcessAndSend2 \
+	LastSpaceEmpty.cpp LastSpaceEmpty \
+	LocalTokens.cpp LocalTokens \
+	GlobalTokens.cpp GlobalTokens \
+	LastSpaceNotRequest.cpp LastSpaceEmpty \
+	QueueClearFirst_simul.cpp QueueClearFirst_simul \
+	ProcessAndSend_no_token_res.cpp ProcessAndSend_no_token_res \
