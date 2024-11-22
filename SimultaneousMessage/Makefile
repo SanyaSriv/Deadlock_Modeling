@@ -33,6 +33,6 @@ BoundedTokenOscillation.cpp: BoundedTokenOscillation.m
 
 clean:
 	rm -f \
-	QueueClearFirst.cpp QueueClearFirst
-	ProcessAndSend.cpp ProcessAndSend
+	QueueClearFirst.cpp QueueClearFirst \
+	ProcessAndSend.cpp ProcessAndSend \
 	BoundedTokenOscillation.cpp BoundedTokenOscillation
