@@ -1,5 +1,5 @@
-INCLUDEPATH = ../cmurphi-master/include
-SRCPATH = ../cmurphi-master/src/
+INCLUDEPATH = ../../cmurphi-master/include
+SRCPATH = ../../cmurphi-master/src/
 
 CXX = g++
 
