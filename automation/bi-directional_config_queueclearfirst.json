@@ -1,0 +1,46 @@
+{
+    "topology": "bi-directional",
+    "NumberNodes": 4,
+    "BufferSpaces": 3,
+    "routers": [],
+    "NewVariables": {
+    },
+    "RuleDistribution": {
+        "Router": [],
+        "Regular": ["Send request 0", "Process request 0", "Process response 0", "Process fwd_request 0", "Process fwd_response 0",
+                    "Send request 1", "Process request 1", "Process response 1", "Process fwd_request 1", "Process fwd_response 1"]
+    },
+    "NewInit": [],
+    "NewArrays": [],
+    "rule_pre_cond": 
+    {
+        "Send request 0": "(Nodes[Nodes[n1].Next_CC].TailPointer_CC < BufferSpace - 1)",
+        "Send request 1": "(Nodes[Nodes[n1].Next_AC].TailPointer_AC < BufferSpace - 1)",
+        
+        "Process fwd_request 0": "(Nodes[n1].IncomingQueue_CC[Nodes[n1].FrontPointer].msg_type = fwd_request) & (Nodes[Nodes[n1].Next_CC].TailPointer_CC < BufferSpace)",
+        "Process fwd_request 1": "(Nodes[n1].IncomingQueue_AC[Nodes[n1].FrontPointer].msg_type = fwd_request) & (Nodes[Nodes[n1].Next_AC].TailPointer_AC < BufferSpace)",
+
+        "Process request 0": "(Nodes[n1].IncomingQueue_CC[Nodes[n1].FrontPointer].msg_type = request) & (Nodes[Nodes[n1].Next_AC].TailPointer_AC < BufferSpace)",
+        "Process request 1": "(Nodes[n1].IncomingQueue_AC[Nodes[n1].FrontPointer].msg_type = request) & (Nodes[Nodes[n1].Next_CC].TailPointer_CC < BufferSpace)",
+        
+        "Process fwd_response 0": "(Nodes[n1].IncomingQueue_CC[Nodes[n1].FrontPointer].msg_type = fwd_response) & (Nodes[Nodes[n1].Next_CC].TailPointer_CC < BufferSpace)",
+        "Process fwd_response 1": "(Nodes[n1].IncomingQueue_AC[Nodes[n1].FrontPointer].msg_type = fwd_response) & (Nodes[Nodes[n1].Next_AC].TailPointer_AC < BufferSpace)",
+
+        "Process response 0": "(Nodes[n1].IncomingQueue_CC[Nodes[n1].FrontPointer].msg_type = response)",
+        "Process response 1": "(Nodes[n1].IncomingQueue_AC[Nodes[n1].FrontPointer].msg_type = response)"
+    },
+    "rule_fire": 
+    {
+        "Send request 0": "SendRequest(n1, n2, 0);",
+        "Process fwd_request 0": "ProcessFwdRequest(n1, 0);",
+        "Process request 0": "ProcessRequest(n1, 0);",
+        "Process fwd_response 0": "ProcessFwdResponse(n1, 0);",
+        "Process response 0": "ProcessResponse(n1, 0);",
+
+        "Send request 1": "SendRequest(n1, n2, 1);",
+        "Process fwd_request 1": "ProcessFwdRequest(n1, 1);",
+        "Process request 1": "ProcessRequest(n1, 1);",
+        "Process fwd_response 1": "ProcessFwdResponse(n1, 1);",
+        "Process response 1": "ProcessResponse(n1, 1);"
+    }
+}

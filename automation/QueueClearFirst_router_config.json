@@ -1,0 +1,26 @@
+{
+    "topology": "unidirectional",
+    "NumberNodes": 4,
+    "BufferSpaces": 4,
+    "routers": [1],
+    "NewVariables": {
+    },
+    "NewInit": [],
+    "NewArrays": ["var Routers: array[NodeIDs] of 0..1;"],
+    "rule_pre_cond": 
+    {
+        "Send request": "(n1 != n2) & (TailPointers[ExitPath[n1]][n1] < BufferSpace) & (TailPointers[n1][EntryPath[n1]] = 0) & (Routers[n1] = 0) & (Routers[n2] = 0)",
+        "Process fwd_request": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_request) & (TailPointers[ExitPath[n1]][n1] < BufferSpace)",
+        "Process request": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = request) & (TailPointers[ExitPath[n1]][n1] < BufferSpace)",
+        "Process fwd_response": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_response) & (TailPointers[ExitPath[n1]][n1] < BufferSpace)",
+        "Process response": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = response)"
+    },
+    "rule_fire": 
+    {
+        "Send request": "SendRequest(n1, ExitPath[n1], n2);",
+        "Process fwd_request": "ProcessFwdRequest(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process request": "ProcessRequest(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process fwd_response": "ProcessFwdResponse(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process response": "ProcessResponse(n1, EntryPath[n1]);"
+    }
+}

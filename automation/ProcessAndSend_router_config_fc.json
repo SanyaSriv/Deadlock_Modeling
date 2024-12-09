@@ -1,0 +1,30 @@
+{
+    "topology": "unidirectional",
+    "NumberNodes": 4,
+    "BufferSpaces": 3,
+    "routers": [1, 3],
+    "NewVariables": {
+    },
+    "NewInit": [],
+    "NewArrays": ["var Routers: array[NodeIDs] of 0..1;"],
+    "RuleDistribution": {
+        "Router": ["Process fwd_request", "Process fwd_response"],
+        "Regular": ["Send request", "Process response", "Process request"]
+    },
+    "rule_pre_cond": 
+    {
+        "Send request": "(n1 != n2) & (TailPointers[ExitPath[n1]][n1] < BufferSpace) & (Routers[n1] = 0) & (Routers[n2] = 0) & (IntentToSendRequest[n1] != 2)",
+        "Process fwd_request": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_request) & (TailPointers[ExitPath[n1]][n1] < BufferSpace)",
+        "Process request": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = request) & (TailPointers[ExitPath[n1]][n1] < BufferSpace) & (IntentToSendRequest[n1] != 1)",
+        "Process fwd_response": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_response) & (TailPointers[ExitPath[n1]][n1] < BufferSpace)",
+        "Process response": "(IncomingQueue[n1][EntryPath[n1]][0].msg_type = response) & (IntentToSendRequest[n1] != 1)"
+    },
+    "rule_fire": 
+    {
+        "Send request": "if ((IntentToSendRequest[n1] = 1) | (TailPointers[n1][EntryPath[n1]] = 0)) then \n SendRequest(n1, ExitPath[n1], n2); \n IntentToSendRequest[n1] := 0; \n else \n IntentToSendRequest[n1] := 2; \n elseif",
+        "Process fwd_request": "ProcessFwdRequest(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process request": "ProcessRequest(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process fwd_response": "ProcessFwdResponse(n1, EntryPath[n1], ExitPath[n1]);",
+        "Process response": "ProcessResponse(n1, EntryPath[n1]); \n if IntentToSendRequest[n1] = 2 then \n IntentToSendRequest[n1] := 1; \n endif;\n"
+    }
+}

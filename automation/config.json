@@ -1,0 +1,30 @@
+{
+    "topology": "uni-directional",
+    "NumberNodes": 3,
+    "BufferSpaces": 3,
+    "routers": [],
+    "NewVariables": {
+    },
+    "RuleDistribution": {
+        "Router": [],
+        "Regular": ["Send request", "Process request", "Process response", "Process fwd_request", "Process fwd_response"]
+    },
+    "NewInit": [],
+    "NewArrays": [],
+    "rule_pre_cond": 
+    {
+        "Send request": "(Nodes[Nodes[n1].Next].TailPointer < BufferSpace) & (Nodes[n1].Tokens > 0)",
+        "Process fwd_request": "(Nodes[n1].IncomingQueue[Nodes[n1].FrontPointer].msg_type = fwd_request) & (Nodes[Nodes[n1].Next].TailPointer < BufferSpace)",
+        "Process request": "(Nodes[n1].IncomingQueue[Nodes[n1].FrontPointer].msg_type = request) & (Nodes[Nodes[n1].Next].TailPointer < BufferSpace)",
+        "Process fwd_response": "(Nodes[n1].IncomingQueue[Nodes[n1].FrontPointer].msg_type = fwd_response) & (Nodes[Nodes[n1].Next].TailPointer < BufferSpace)",
+        "Process response": "(Nodes[n1].IncomingQueue[Nodes[n1].FrontPointer].msg_type = response)"
+    },
+    "rule_fire": 
+    {
+        "Send request": "SendRequest(n1, n2);\n    Nodes[n1].Tokens := Nodes[n1].Tokens - 1;\n",
+        "Process fwd_request": "ProcessFwdRequest(n1);",
+        "Process request": "ProcessRequest(n1);",
+        "Process fwd_response": "ProcessFwdResponse(n1);",
+        "Process response": "ProcessResponse(n1);\n    Nodes[n1].Tokens := Nodes[n1].Tokens + 1;\n"
+    }
+}

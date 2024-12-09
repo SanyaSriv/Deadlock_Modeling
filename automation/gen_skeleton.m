@@ -1,8 +1,8 @@
 /*Defining the macros here*/
 const
-  /*ADD_VARIABLES_IN_HERE*/
-  NumberNodes: 3;
-  BufferSpace: 3;
+  NumberNodes: /*ADD_NUM_NODES*/;
+  BufferSpace: /*ADD_BUFF_SPACE*/;
+  /*ADD_MORE_VARIABLES*/
 
 type MessageState: enum {empty, response, request, fwd_request, fwd_response};
 
@@ -24,7 +24,8 @@ var TailPointers: array[NodeIDs] of array[NodeIDs] of 0..BufferSpace;
 /*Array to indicate a node's router status
 1 = Node is a router | 0 = Node is not a router*/
 var RouterStatus: array[0..NumberNodes] of 0..1;
-/*ADD_MORE_VARIABLES_IN_HERE*/
+/*ADD_MORE_ARRAYS*/
+
 var ExitPath: array[NodeIDs] of NodeIDs;
 var EntryPath: array[NodeIDs] of NodeIDs;
 
@@ -198,63 +199,7 @@ Begin
         endif;
     endfor;
 
+    /*ADD_MORE_INIT*/
 end;
 
 /*ADD_RULES_IN_HERE*/
-ruleset n1: 0..NumberNodes-1 do /*Node that wants to send a request to a node*/
-    ruleset n2: 0..NumberNodes-1 do /*Final destination of the request*/
-        rule "Send Request"
-            (n1 != n2) & /*Cannot send a request to yourself*/
-            (TailPointers[ExitPath[n1]][n1] < BufferSpace - 1)
-                /* Use the variable here - ALSO CHECK THAT THIS NODE IS NOT A ROUTER - check both source node and destination nodes are not routers*/
-        ==>
-        Begin
-            SendRequest(n1, ExitPath[n1], n2); /* Fire the procedure */
-        endrule;
-    endruleset;
-endruleset;
-
-/*ADD_RULES_IN_HERE*/
-ruleset n1: 0..NumberNodes-1 do /*Node that wants to send a request to a node*/
-    rule "Consume Fwd Request"
-        (IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_request) &
-        (TailPointers[ExitPath[n1]][n1] < BufferSpace)
-        /* Use the variable here - ALSO CHECK THAT THIS NODE IS NOT A ROUTER*/
-    ==>
-    Begin
-        ProcessFwdRequest(n1, EntryPath[n1], ExitPath[n1]); /* Fire the procedure */
-    endrule;
-endruleset;
-
-ruleset n1: 0..NumberNodes-1 do /*Node that wants to send a request to a node*/
-    rule "Consume Request"
-        (IncomingQueue[n1][EntryPath[n1]][0].msg_type = request) &
-        (TailPointers[ExitPath[n1]][n1] < BufferSpace)
-        /* Use the variable here - ALSO CHECK THAT THIS NODE IS NOT A ROUTER*/
-    ==>
-    Begin
-        ProcessRequest(n1, EntryPath[n1], ExitPath[n1]); /* Fire the procedure */
-    endrule;
-endruleset;
-
-ruleset n1: 0..NumberNodes-1 do /*Node that wants to send a request to a node*/
-    rule "Consume Fwd Response"
-        (IncomingQueue[n1][EntryPath[n1]][0].msg_type = fwd_response) &
-        (TailPointers[ExitPath[n1]][n1] < BufferSpace)
-        /* Use the variable here - ALSO CHECK THAT THIS NODE IS NOT A ROUTER*/
-    ==>
-    Begin
-        ProcessFwdResponse(n1, EntryPath[n1], ExitPath[n1]); /* Fire the procedure */
-    endrule;
-endruleset;
-
-ruleset n1: 0..NumberNodes-1 do /*Node that wants to send a request to a node*/
-    rule "Consume Response"
-        (IncomingQueue[n1][EntryPath[n1]][0].msg_type = response)
-        /* Use the variable here - ALSO CHECK THAT THIS NODE IS NOT A ROUTER*/
-    ==>
-    Begin
-        ProcessResponse(n1, EntryPath[n1]); /* Fire the procedure */
-    endrule;
-endruleset;
-
